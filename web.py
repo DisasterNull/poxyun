@@ -14,24 +14,24 @@ while type(count) != int:
 browser = webdriver.Chrome()
 # browser = webdriver.Chrome(executable_path = \
 # ‘C:\\Users\\KinoCode\\Desktop\\MyCode\\chromedriver.exe’) # Windows
-browser.implicitly_wait(2)
+browser.implicitly_wait(3)
 
 # webページのデータを取得(html形式)
 url_login = "https://jp.akinator.com"
 browser.get(url_login)
-time.sleep(2)
+time.sleep(3)
 
 # 開始する
 browser_from = browser.find_element_by_class_name('btn-play')
 browser_from.click()
 print('開始しました')
-time.sleep(2)
+time.sleep(3)
 
 # ゲームモード選択
 browser_from = browser.find_element_by_link_text('キャラクター')
 browser_from.click()
 print('ゲームモードを選択しました')
-time.sleep(2)
+time.sleep(3)
 
 # 「はい」を選ぶべき質問
 datasets_yes = ['年齢は20代ですか？', '25歳よりも若い?',
@@ -41,7 +41,11 @@ datasets_yes = ['年齢は20代ですか？', '25歳よりも若い?',
                 '学校に通ってる?', '兄弟か姉妹がいる？', 'あなたと関係がある？',
                 '現在、日本に住んでいる？', 'その人は20歳以上ですか？', '目はある？',
                 '首は一つですか？', '実在する?', '足はある？', '肌の色は人間と同じ色をしている？',
-                '口はついていますか？', '学校に通っていますか？', '大学にいった?'
+                '口はついていますか？', '学校に通っていますか？', '大学にいった?', '脚(足)がある?',
+                'あなたに会ったことがある？', 'あなたは会ったことがありますか？',
+                'その人は成人していますか', 'あなたの同じ学校ですか？' 'ネッ友を思い浮かべています',
+                '一般的に見て清潔感がある？ ', 'あなたの友達ですか？', '理系ですか？', '男性?',
+                '学校に通ってる？'
                 ]
 
 # 「多分そう部分的にそう」を選ぶべき質問
@@ -54,6 +58,9 @@ for i in range(count):
     flag_answer = browser.find_elements_by_class_name('proposal-title')
     while not flag_answer:
         question_text = browser.find_element_by_class_name('question-text').text
+        while question_text == '取り込み中・・・':
+            question_text = browser.find_element_by_class_name(
+                'question-text').text
         print(question_text)
         for yes in datasets_yes:
             flag_yes = question_text == yes
@@ -61,7 +68,7 @@ for i in range(count):
                 click_btn = browser.find_element_by_id('a_yes')
                 click_btn.click()
                 print('はいを選択しました')
-                time.sleep(2)
+                time.sleep(3)
                 break
         else:
 
@@ -71,13 +78,13 @@ for i in range(count):
                     click_btn = browser.find_element_by_id('a_probably')
                     click_btn.click()
                     print('多分そう部分的にそうを選択しました')
-                    time.sleep(2)
+                    time.sleep(3)
                     break
             else:
                 click_btn = browser.find_element_by_id('a_no')
                 click_btn.click()
                 print('いいえを選択しました')
-                time.sleep(2)
+                time.sleep(3)
         flag_answer = browser.find_elements_by_class_name('proposal-title')
     flag_answer = browser.find_element_by_class_name('proposal-title')
     print(flag_answer.text + 'を思い浮かべています')
@@ -86,15 +93,15 @@ for i in range(count):
         propose_yes = browser.find_element_by_id('a_propose_yes')
         propose_yes.click()
         print('はいを選択肢しました')
-        time.sleep(2)
+        time.sleep(3)
     else:
         propose_no = browser.find_element_by_id('a_propose_no')
         propose_no.click()
         print('いいえを選択肢しました')
-        time.sleep(2)
+        time.sleep(3)
 
     # もう一度遊ぶ
     browser_from = browser.find_element_by_link_text('もう一度遊ぶ')
     browser_from.click()
     print('もう一度遊ぶを選択しました')
-    time.sleep(2)
+    time.sleep(3)
