@@ -1,5 +1,6 @@
 # ライブラリをインポート
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import time
 
 # 繰り返し回数を設定
@@ -11,7 +12,9 @@ while type(count) != int:
     count = int(input())
 
 # Chromeの自動化
-browser = webdriver.Chrome()
+options = Options()
+options.add_argument('--headless')
+browser = webdriver.Chrome(options=options)
 # browser = webdriver.Chrome(executable_path = \
 # ‘C:\\Users\\KinoCode\\Desktop\\MyCode\\chromedriver.exe’) # Windows
 browser.implicitly_wait(3)
@@ -124,3 +127,4 @@ for i in range(count):
 
     print('もう一度遊ぶを選択しました')
     time.sleep(3)
+browser.close()
